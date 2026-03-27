@@ -1,0 +1,65 @@
+---
+import Header from '../components/layout/Header.astro'
+import Footer from '../components/layout/Footer.astro'
+import Parallax from '../components/animations/Parallax'
+import '../styles/global.css'
+
+interface Props {
+  title?: string
+  description?: string
+}
+
+const {
+  title = 'Plume | Portfolio Starter',
+  description = 'A modern portfolio site built with Astro, React, Tailwind, and Sanity.',
+} = Astro.props
+
+const currentPath = Astro.url.pathname
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content={description} />
+    <meta name="generator" content={Astro.generator} />
+
+    <!-- Open Graph -->
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+
+    <title>{title}</title>
+  </head>
+  <body class="min-h-screen flex flex-col noise">
+    <!-- Background Grid Pattern -->
+    <div class="fixed inset-0 bg-grid pointer-events-none opacity-50"></div>
+
+    <!-- Gradient Orbs for atmosphere with parallax -->
+    <div class="fixed inset-0 overflow-hidden pointer-events-none">
+      <Parallax client:idle speed={-0.15} className="absolute top-0 -left-40">
+        <div class="w-80 h-80 bg-accent/20 rounded-full blur-[120px] animate-glow-pulse"></div>
+      </Parallax>
+      <Parallax client:idle speed={0.1} className="absolute bottom-0 -right-40">
+        <div class="w-80 h-80 bg-cyan/10 rounded-full blur-[120px] animate-glow-pulse" style="animation-delay: 1.5s;"></div>
+      </Parallax>
+    </div>
+
+    <Header currentPath={currentPath} />
+
+    <main class="flex-1 relative z-10 pt-16 md:pt-20">
+      <slot />
+    </main>
+
+    <Footer />
+  </body>
+</html>

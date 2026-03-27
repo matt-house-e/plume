@@ -1,0 +1,10 @@
+{
+  "name": "@plume/config",
+  "private": true,
+  "version": "0.0.0",
+  "exports": {
+    "./prettier": "./prettier/index.js",
+    "./tsconfig/base": "./tsconfig/base.json",
+    "./tsconfig/astro": "./tsconfig/astro.json"
+  }
+}

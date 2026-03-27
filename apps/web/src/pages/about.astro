@@ -1,0 +1,192 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro'
+import Button from '../components/primitives/Button'
+import ScrollReveal from '../components/animations/ScrollReveal'
+import TimelineReveal from '../components/animations/TimelineReveal'
+
+const skills = [
+  { category: 'Category A', items: ['Skill 1', 'Skill 2', 'Skill 3'] },
+  { category: 'Category B', items: ['Skill 1', 'Skill 2', 'Skill 3'] },
+  { category: 'Category C', items: ['Skill 1', 'Skill 2', 'Skill 3'] },
+  { category: 'Category D', items: ['Skill 1', 'Skill 2', 'Skill 3'] },
+  { category: 'Category E', items: ['Skill 1', 'Skill 2', 'Skill 3'] },
+  { category: 'Category F', items: ['Skill 1', 'Skill 2', 'Skill 3'] },
+]
+
+const experience = [
+  {
+    role: 'Current Role',
+    company: 'Company Name',
+    period: '2023 – Present',
+    description: 'Describe what you do in your current role. What are your key responsibilities and achievements?',
+  },
+  {
+    role: 'Previous Role',
+    company: 'Company Name',
+    period: '2020 – 2023',
+    description: 'Describe what you did in this role. What impact did you have?',
+  },
+  {
+    role: 'Earlier Role',
+    company: 'Company Name',
+    period: '2018 – 2020',
+    description: 'Describe what you did in this role. What did you learn or build?',
+  },
+]
+---
+
+<BaseLayout
+  title="About | Plume"
+  description="Learn more about who we are and what we do."
+>
+  <!-- Hero Section -->
+  <section class="py-20 md:py-32">
+    <div class="max-w-6xl mx-auto px-6 md:px-8">
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
+        <!-- Content -->
+        <div class="lg:col-span-7">
+          <span class="font-mono text-xs uppercase tracking-[0.2em] text-accent animate-fade-up">About</span>
+          <h1 class="mt-4 text-4xl md:text-5xl font-bold tracking-tight text-foreground animate-fade-up stagger-1">
+            Your name and title here
+          </h1>
+          <div class="mt-8 space-y-6 text-lg text-muted leading-relaxed animate-fade-up stagger-2">
+            <p>
+              Write your bio here. Who are you? What drives you? What's your
+              background and what makes you uniquely qualified for the work you do?
+            </p>
+            <p>
+              Add a second paragraph about your approach, philosophy, or what
+              clients can expect when working with you.
+            </p>
+            <p>
+              A third paragraph about interests, side projects, or anything
+              personal that helps people connect with you.
+            </p>
+          </div>
+          <div class="mt-10 flex flex-wrap gap-4 animate-fade-up stagger-3">
+            <Button href="/contact">
+              Get in touch
+            </Button>
+            <Button href="/work" variant="secondary">
+              View my work
+            </Button>
+          </div>
+        </div>
+
+        <!-- Photo/Visual -->
+        <div class="lg:col-span-5 animate-fade-up stagger-2">
+          <div class="relative aspect-square rounded-2xl overflow-hidden bg-surface-elevated border border-border">
+            <div class="absolute inset-0 bg-gradient-to-br from-accent/20 via-surface to-cyan/10"></div>
+            <div class="absolute inset-0 flex items-center justify-center">
+              <div class="relative">
+                <div class="w-32 h-32 rounded-full bg-accent/20 animate-glow-pulse"></div>
+                <div class="absolute inset-4 rounded-full bg-surface-elevated border border-accent/30 flex items-center justify-center">
+                  <span class="text-4xl font-bold text-foreground">YN</span>
+                </div>
+              </div>
+            </div>
+            <div class="absolute inset-0 bg-grid opacity-30"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Skills Section -->
+  <section class="py-24 md:py-32 border-t border-border">
+    <div class="max-w-6xl mx-auto px-6 md:px-8">
+      <div class="mb-16">
+        <span class="font-mono text-xs uppercase tracking-[0.2em] text-accent">Expertise</span>
+        <h2 class="mt-4 text-3xl md:text-4xl font-bold tracking-tight text-foreground">
+          Skills & Technologies
+        </h2>
+      </div>
+
+      <ScrollReveal client:visible className="grid grid-cols-2 md:grid-cols-3 gap-8 md:gap-12" stagger={0.08}>
+        {skills.map((skillGroup) => (
+          <div>
+            <h3 class="font-mono text-xs uppercase tracking-[0.15em] text-muted mb-4">
+              {skillGroup.category}
+            </h3>
+            <ul class="space-y-2">
+              {skillGroup.items.map((skill) => (
+                <li class="text-foreground">{skill}</li>
+              ))}
+            </ul>
+          </div>
+        ))}
+      </ScrollReveal>
+    </div>
+  </section>
+
+  <!-- Experience Section -->
+  <section class="py-24 md:py-32 border-t border-border">
+    <div class="max-w-6xl mx-auto px-6 md:px-8">
+      <div class="mb-16">
+        <span class="font-mono text-xs uppercase tracking-[0.2em] text-accent">Background</span>
+        <h2 class="mt-4 text-3xl md:text-4xl font-bold tracking-tight text-foreground">
+          Experience
+        </h2>
+      </div>
+
+      <TimelineReveal client:visible className="space-y-8">
+        {experience.map((job, index) => (
+          <div data-timeline-item class="relative pl-8 pb-8 border-l border-border last:pb-0">
+            <div data-timeline-dot class="absolute left-0 top-0 w-3 h-3 -translate-x-1/2 rounded-full bg-accent"></div>
+            {index < experience.length - 1 && (
+              <div data-timeline-line class="absolute left-0 top-3 bottom-0 w-px -translate-x-1/2 bg-border"></div>
+            )}
+
+            <div class="flex flex-col md:flex-row md:items-start md:justify-between gap-2">
+              <div>
+                <h3 class="text-lg font-semibold text-foreground">{job.role}</h3>
+                <p class="text-accent">{job.company}</p>
+              </div>
+              <span class="font-mono text-sm text-muted">{job.period}</span>
+            </div>
+            <p class="mt-3 text-muted leading-relaxed">
+              {job.description}
+            </p>
+          </div>
+        ))}
+      </TimelineReveal>
+    </div>
+  </section>
+
+  <!-- Values Section -->
+  <section class="py-24 md:py-32 border-t border-border">
+    <div class="max-w-6xl mx-auto px-6 md:px-8">
+      <ScrollReveal client:visible className="grid grid-cols-1 md:grid-cols-3 gap-8" stagger={0.12}>
+        <div class="p-8 bg-surface-elevated border border-border rounded-2xl card-hover">
+          <div class="w-12 h-12 flex items-center justify-center rounded-xl bg-accent-muted text-accent text-xl mb-6">
+            ◇
+          </div>
+          <h3 class="text-lg font-semibold text-foreground mb-3">Value One</h3>
+          <p class="text-sm text-muted leading-relaxed">
+            Describe a core value or principle that guides your work.
+          </p>
+        </div>
+
+        <div class="p-8 bg-surface-elevated border border-border rounded-2xl card-hover">
+          <div class="w-12 h-12 flex items-center justify-center rounded-xl bg-accent-muted text-accent text-xl mb-6">
+            ⬡
+          </div>
+          <h3 class="text-lg font-semibold text-foreground mb-3">Value Two</h3>
+          <p class="text-sm text-muted leading-relaxed">
+            Describe another core value or principle that guides your work.
+          </p>
+        </div>
+
+        <div class="p-8 bg-surface-elevated border border-border rounded-2xl card-hover">
+          <div class="w-12 h-12 flex items-center justify-center rounded-xl bg-accent-muted text-accent text-xl mb-6">
+            △
+          </div>
+          <h3 class="text-lg font-semibold text-foreground mb-3">Value Three</h3>
+          <p class="text-sm text-muted leading-relaxed">
+            Describe a third core value or principle that guides your work.
+          </p>
+        </div>
+      </ScrollReveal>
+    </div>
+  </section>
+</BaseLayout>

@@ -1,0 +1,153 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro'
+import Button from '../components/primitives/Button'
+import ScrollReveal from '../components/animations/ScrollReveal'
+
+const projects = [
+  {
+    title: 'Project One',
+    category: 'Category',
+    description: 'Describe this project. What was the challenge, what did you build, and what was the result?',
+    technologies: ['Tech A', 'Tech B', 'Tech C', 'Tech D', 'Tech E'],
+    metrics: [
+      { label: 'Metric one', value: '99%' },
+      { label: 'Metric two', value: '10x' },
+      { label: 'Metric three', value: '50k+' },
+    ],
+    color: 'accent',
+  },
+  {
+    title: 'Project Two',
+    category: 'Category',
+    description: 'Describe this project. What was the challenge, what did you build, and what was the result?',
+    technologies: ['Tech A', 'Tech B', 'Tech C', 'Tech D', 'Tech E'],
+    metrics: [
+      { label: 'Metric one', value: '40%' },
+      { label: 'Metric two', value: '$1M' },
+      { label: 'Metric three', value: '92%' },
+    ],
+    color: 'cyan',
+  },
+  {
+    title: 'Project Three',
+    category: 'Category',
+    description: 'Describe this project. What was the challenge, what did you build, and what was the result?',
+    technologies: ['Tech A', 'Tech B', 'Tech C', 'Tech D', 'Tech E'],
+    metrics: [
+      { label: 'Metric one', value: '10k' },
+      { label: 'Metric two', value: '75%' },
+      { label: 'Metric three', value: '4.8/5' },
+    ],
+    color: 'accent',
+  },
+  {
+    title: 'Project Four',
+    category: 'Category',
+    description: 'Describe this project. What was the challenge, what did you build, and what was the result?',
+    technologies: ['Tech A', 'Tech B', 'Tech C', 'Tech D', 'Tech E'],
+    metrics: [
+      { label: 'Metric one', value: '99.5%' },
+      { label: 'Metric two', value: '30fps' },
+      { label: 'Metric three', value: '<0.1%' },
+    ],
+    color: 'cyan',
+  },
+]
+---
+
+<BaseLayout
+  title="Work | Plume"
+  description="Portfolio of projects and case studies. Replace with your own description."
+>
+  <!-- Hero Section -->
+  <section class="py-20 md:py-32">
+    <div class="max-w-6xl mx-auto px-6 md:px-8">
+      <div class="max-w-3xl">
+        <span class="font-mono text-xs uppercase tracking-[0.2em] text-accent animate-fade-up">Work</span>
+        <h1 class="mt-4 text-4xl md:text-5xl font-bold tracking-tight text-foreground animate-fade-up stagger-1">
+          Selected projects
+        </h1>
+        <p class="mt-6 text-lg text-muted leading-relaxed animate-fade-up stagger-2">
+          A selection of projects and case studies. Replace this with a description
+          of the kind of work you do and the results you deliver.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Projects Grid -->
+  <section class="py-24 md:py-32 border-t border-border">
+    <div class="max-w-6xl mx-auto px-6 md:px-8">
+      <ScrollReveal client:visible className="grid grid-cols-1 lg:grid-cols-2 gap-8" stagger={0.12}>
+        {projects.map((project) => (
+          <div class="group relative bg-surface-elevated border border-border rounded-2xl overflow-hidden card-hover">
+            <!-- Project Visual -->
+            <div class={`aspect-[16/9] bg-gradient-to-br ${project.color === 'accent' ? 'from-accent/20 via-surface to-accent/5' : 'from-cyan/20 via-surface to-cyan/5'} flex items-center justify-center relative`}>
+              <div class={`w-20 h-20 rounded-2xl ${project.color === 'accent' ? 'bg-accent/20' : 'bg-cyan/20'} flex items-center justify-center`}>
+                <span class={`${project.color === 'accent' ? 'text-accent' : 'text-cyan'} text-3xl`}>&#x2B21;</span>
+              </div>
+              <div class="absolute inset-0 bg-grid opacity-20"></div>
+            </div>
+
+            <div class="p-8">
+              <span class="font-mono text-xs uppercase tracking-[0.15em] text-accent">
+                {project.category}
+              </span>
+
+              <h2 class="mt-3 text-xl font-semibold text-foreground group-hover:text-accent transition-colors">
+                {project.title}
+              </h2>
+
+              <p class="mt-3 text-sm text-muted leading-relaxed">
+                {project.description}
+              </p>
+
+              <!-- Metrics -->
+              <div class="mt-6 grid grid-cols-3 gap-4">
+                {project.metrics.map((metric) => (
+                  <div>
+                    <div class="text-lg font-bold text-foreground">{metric.value}</div>
+                    <div class="text-xs text-muted">{metric.label}</div>
+                  </div>
+                ))}
+              </div>
+
+              <!-- Technologies -->
+              <div class="mt-6 flex flex-wrap gap-2">
+                {project.technologies.map((tech) => (
+                  <span class="px-2 py-1 text-xs font-mono text-muted bg-surface border border-border rounded">
+                    {tech}
+                  </span>
+                ))}
+              </div>
+            </div>
+          </div>
+        ))}
+      </ScrollReveal>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="py-24 md:py-32 border-t border-border">
+    <div class="max-w-6xl mx-auto px-6 md:px-8">
+      <div class="relative overflow-hidden rounded-3xl bg-gradient-to-br from-surface-elevated to-surface border border-border p-12 md:p-16 text-center">
+        <div class="absolute top-0 right-0 w-96 h-96 bg-accent/10 rounded-full blur-[100px]"></div>
+        <div class="absolute bottom-0 left-0 w-64 h-64 bg-cyan/10 rounded-full blur-[80px]"></div>
+
+        <div class="relative z-10 max-w-2xl mx-auto">
+          <h2 class="text-3xl md:text-4xl font-bold tracking-tight text-foreground">
+            Have a project in mind?
+          </h2>
+          <p class="mt-4 text-lg text-muted">
+            Replace this with your own call-to-action copy.
+          </p>
+          <div class="mt-8">
+            <Button href="/contact" size="lg">
+              Start a conversation
+            </Button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
