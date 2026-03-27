@@ -1,6 +1,6 @@
 # Plume
 
-Agency starter template for static portfolio sites.
+Starter template for static portfolio sites.
 
 ## Stack
 
@@ -22,21 +22,28 @@ pnpm preview      # Preview production build
 - **Hydration budget**: Use `client:visible` or `client:idle`. Avoid `client:load` except navigation.
 - **Data at build time**: Fetch from Sanity in `.astro` files, pass as props to React.
 
-## Component Structure
+## Project Structure
 
 ```
-src/components/
-├── primitives/   # Button, Card, Text (reusable)
-├── sections/     # Hero, ProjectGrid (map to Sanity blocks)
-└── layout/       # Header, Footer, Navigation
+src/
+├── components/layout/   # Header, Footer
+├── layouts/             # BaseLayout
+├── lib/                 # Sanity client, utilities
+├── pages/               # Astro pages (index, about, services, work, contact)
+└── styles/              # Global CSS, Tailwind
+
+sanity/
+├── schemas/documents/   # Page templates (added per-page), project, settings
+├── schemas/objects/     # Reusable types (seo)
+└── sanity.config.ts     # Studio config
 ```
 
 ## Sanity Patterns
 
+- **Page templates, not page blocks**: Each page gets its own document type with specific fields.
 - Model for meaning, not presentation. No `backgroundColor`, `fontSize` in schemas.
-- Objects for unique content, References for reusable (testimonials, team).
 - All documents include `seo` object.
-- See `apps/studio/schemas/` for schema definitions.
+- Add page template schemas one at a time as each page is designed.
 
 ## Constraints
 
@@ -46,16 +53,6 @@ src/components/
 - Do NOT over-engineer - these are portfolio sites
 - Do NOT create new files when editing existing ones suffices
 
-## Project Structure
-
-- `apps/web/` - Astro site
-- `apps/studio/` - Sanity Studio
-- `packages/config/` - Shared ESLint, Prettier, TypeScript configs
-
 ## References
 
 For detailed patterns, rationale, and examples, see **SPEC.MD** in the project root.
-
-- Sanity schema patterns: SPEC.MD Section 5
-- Component architecture: SPEC.MD Section 6
-- Development workflow: SPEC.MD Section 4

@@ -1,0 +1,107 @@
+---
+interface Props {
+  currentPath?: string
+}
+
+const { currentPath = '/' } = Astro.props
+
+const navLinks = [
+  { href: '/', label: 'Home' },
+  { href: '/about', label: 'About' },
+  { href: '/services', label: 'Services' },
+  { href: '/work', label: 'Work' },
+  { href: '/contact', label: 'Contact' },
+]
+---
+
+<header class="fixed top-0 left-0 right-0 z-50 bg-background/80 backdrop-blur-xl border-b border-border/50">
+  <nav class="max-w-6xl mx-auto px-6 md:px-8">
+    <div class="flex items-center justify-between h-16 md:h-20">
+      <a href="/" class="font-semibold text-lg tracking-tight text-foreground">
+        plume<span class="text-accent">.</span>
+      </a>
+
+      <div class="hidden md:flex items-center gap-1">
+        {navLinks.map((link) => (
+          <a
+            href={link.href}
+            class={`
+              px-4 py-2 text-sm font-medium rounded-lg transition-colors duration-200
+              ${currentPath === link.href
+                ? 'text-foreground bg-surface-elevated'
+                : 'text-muted hover:text-foreground hover:bg-surface-elevated/50'
+              }
+            `}
+          >
+            {link.label}
+          </a>
+        ))}
+      </div>
+
+      <button
+        id="mobile-menu-toggle"
+        class="md:hidden w-10 h-10 flex items-center justify-center rounded-lg hover:bg-surface-elevated transition-colors"
+        aria-label="Toggle menu"
+      >
+        <div class="w-5 flex flex-col gap-1.5" id="hamburger">
+          <span class="block h-px w-full bg-foreground transition-all duration-300 origin-center"></span>
+          <span class="block h-px w-full bg-foreground transition-all duration-300"></span>
+          <span class="block h-px w-full bg-foreground transition-all duration-300 origin-center"></span>
+        </div>
+      </button>
+    </div>
+  </nav>
+
+  <div
+    id="mobile-menu"
+    class="md:hidden absolute top-full left-0 right-0 bg-background/95 backdrop-blur-xl border-b border-border hidden"
+  >
+    <nav class="px-6 py-4 flex flex-col gap-1">
+      {navLinks.map((link) => (
+        <a
+          href={link.href}
+          class={`
+            px-4 py-3 text-base font-medium rounded-lg transition-colors duration-200
+            ${currentPath === link.href
+              ? 'text-foreground bg-surface-elevated'
+              : 'text-muted hover:text-foreground hover:bg-surface-elevated/50'
+            }
+          `}
+        >
+          {link.label}
+        </a>
+      ))}
+    </nav>
+  </div>
+</header>
+
+<script>
+  const toggle = document.getElementById('mobile-menu-toggle')
+  const menu = document.getElementById('mobile-menu')
+  const hamburger = document.getElementById('hamburger')
+
+  if (toggle && menu && hamburger) {
+    toggle.addEventListener('click', () => {
+      const isOpen = !menu.classList.contains('hidden')
+      if (isOpen) {
+        menu.classList.add('hidden')
+        hamburger.classList.remove('open')
+      } else {
+        menu.classList.remove('hidden')
+        hamburger.classList.add('open')
+      }
+    })
+  }
+</script>
+
+<style>
+  #hamburger.open span:first-child {
+    transform: translateY(5px) rotate(45deg);
+  }
+  #hamburger.open span:nth-child(2) {
+    opacity: 0;
+  }
+  #hamburger.open span:last-child {
+    transform: translateY(-5px) rotate(-45deg);
+  }
+</style>

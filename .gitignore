@@ -1,6 +1,6 @@
 node_modules/
 dist/
-.turbo/
+.astro/
 .DS_Store
 .env
 .env.*
